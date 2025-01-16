@@ -24,7 +24,7 @@ jobs:
     - name: Set up WinAppDriver
       run: |
         choco install winappdriver
-        Start-Process -FilePath "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
+        Start-Process -FilePath "C:\Program Files\Windows Application Driver\WinAppDriver.exe"
 
     - name: Cache Maven packages
       uses: actions/cache@v2
