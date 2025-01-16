@@ -1,16 +1,37 @@
 package pages;
 
-import io.appium.java_client.FindsByAccessibilityId;
+
+import Utils.BasePage;
 import io.appium.java_client.windows.WindowsDriver;
 import org.openqa.selenium.support.PageFactory;
 
-public class ApplicationLoginPage {
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
-    WindowsDriver driver;
+public class ApplicationLoginPage extends BasePage {
+
+
     public ApplicationLoginPage(WindowsDriver driver) {
-        this.driver = driver;
-        PageFactory.initElements(driver, this);
+        super(driver);
+
     }
+
+//    Set<String> allWindowHandles = driver.getWindowHandles();
+//    List<String> list = new ArrayList<String>(allWindowHandles);
+//    String currentWindowHandle = driver.getWindowHandle();
+//    public void switchToNewWindow() {
+//        for (String windowHandle : allWindowHandles) {
+//            if (!windowHandle.equals(currentWindowHandle)) {
+//                driver.switchTo().window(windowHandle);
+//                break;
+//            }
+//        }
+//    }
+//    public ApplicationLoginPage(WindowsDriver driver) {
+//        this.driver = driver;
+//        PageFactory.initElements(driver, this);
+//    }
 
 
     public void enterUsername(String name) {
@@ -28,4 +49,31 @@ public class ApplicationLoginPage {
         driver.findElementByName("Login").click();
     }
 
+   ;
+
+    public void clickOffButton() {
+        switchToWindow();
+        driver.findElementByName("Log off").click();
+
+    }
+
+
+
+    public void clickLogoutButton() throws InterruptedException {
+        // Switch to the new window
+        switchToWindow();
+
+
+        driver.findElementByAccessibilityId("iconExit").click();
+       // switchToNewWindow();
+        driver.findElementByAccessibilityId("tbUsernameExit").sendKeys("Admin");
+        driver.findElementByAccessibilityId("tbPasswordExit").sendKeys("securiport");
+        driver.findElementByName("Exit").click();
+        Thread.sleep(5000);
+    }
+
+
+
 }
+
+

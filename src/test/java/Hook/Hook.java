@@ -27,13 +27,15 @@ public class Hook {
         }
 
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
+
     }
 
     @After
-    public void tearDown() {
+    public void tearDown() throws InterruptedException {
         if (driver != null) {
             driver.quit();
         }
+        Thread.sleep(5000);
     }
 
     public static WindowsDriver getDriver() {
