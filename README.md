@@ -8,11 +8,11 @@ Windows Application Driver (WinAppDriver) is a service to support Selenium-like 
 1. Install Java 8 or above <https://www.oracle.com/java/technologies/downloads/>
    How to setting up JAVA_HOME and PATH in Windows
     - Right-click on My Computer and select Properties.
-          ![img_2.png](img_2.png)
+          ![img_8.png](img_8.png)
     - On the Advanced tab, select Environment Variables, and then edit JAVA_HOME to point to where the JDK software is located, for example, C:\Program Files\Java\jdk1.8.0_02.
-          ![img_3.png](img_3.png)
+          ![img_9.png](img_9.png)
     - In the same dialog, update Path to include the path to the bin folder in the JDK path, for example, C:\Program Files\Java\jdk1.8.0_02\bin.
-          ![img_4.png](img_4.png)
+          ![img_10.png](img_10.png)
     - Open a new Command Prompt window and check that your JAVA_HOME and Path are set correctly by typing java -version, javac -version, and mvn -version.
           ![img_5.png](img_5.png)
     - If you have installed the JDK in Program Files, the path probably is C:\Program Files\Java\jdk1.8.0_02.
