@@ -54,7 +54,30 @@ Download (preferably a stable version) WinAppDriver:
 Once the installer is downloaded, perform the installation, it is recommended to leave the default installation path.
 Note: This tool provides us with the Inspector to map the objects of the desktop application we want to work with.
 ### Write an Automation Script
-Now that you've successfully installed WinAppDriver, you can get started with [authoring your first automation script](./Docs/AuthoringTestScripts.md)! 
+Now that you've successfully installed WinAppDriver, you can get started with [authoring your first automation script](./Docs/AuthoringTestScripts.md)!
+
+
+### To create a testng.xml file to run the Maven tests
+
+Follow these steps:  
+- Create a file named testng.xml in the root directory of your project.  
+- Add the following content to the testng.xml file:
+
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="Suite">
+    <test name="Test">
+        <classes>
+            <class name="runner.TestRunner"/>
+            <!-- Add other test classes here -->
+        </classes>
+    </test>
+</suite>
+
+This testng.xml file defines a test suite named "Suite" and a test named "Test". It includes the TestRunner class.
+You can add other test classes by including additional <class> elements within the <classes> section.  
+To run the tests using Maven, you can use the following command:
+
+mvn test -DsuiteXmlFile=testng.xml
 
 ### Execution Result
 The execution result will be displayed in the console or the specified report directory, depending on your Maven configuration.
