@@ -1,5 +1,36 @@
-## Windows Application Driver
-Windows Application Driver (WinAppDriver) is a service to support Selenium-like UI Test Automation on Windows Applications. This service supports testing **Universal Windows Platform (UWP)**, **Windows Forms (WinForms)**, **Windows Presentation Foundation (WPF)**, and **Classic Windows (Win32)** apps on **Windows 10 PCs**. 
+
+## WebAppDriver with JAVA and Cucumber POC Framework
+This is a POC framework for WebAppDriver with JAVA and Cucumber.
+Windows Application Driver (WinAppDriver) is a service to support Selenium-like UI Test Automation on Windows Applications. This service supports testing **Universal Windows Platform (UWP)**, **Windows Forms (WinForms)**, **Windows Presentation Foundation (WPF)**, and **Classic Windows (Win32)** apps on **Windows 10 PCs**.
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Pre Requisites to run the project
+1. Install Java 8 or above <https://www.oracle.com/java/technologies/downloads/>
+   How to setting up JAVA_HOME and PATH in Windows
+    - Right-click on My Computer and select Properties.
+          ![img_2.png](img_2.png)
+    - On the Advanced tab, select Environment Variables, and then edit JAVA_HOME to point to where the JDK software is located, for example, C:\Program Files\Java\jdk1.8.0_02.
+          ![img_3.png](img_3.png)
+    - In the same dialog, update Path to include the path to the bin folder in the JDK path, for example, C:\Program Files\Java\jdk1.8.0_02\bin.
+          ![img_4.png](img_4.png)
+    - Open a new Command Prompt window and check that your JAVA_HOME and Path are set correctly by typing java -version, javac -version, and mvn -version.
+          ![img_5.png](img_5.png)
+    - If you have installed the JDK in Program Files, the path probably is C:\Program Files\Java\jdk1.8.0_02.
+   
+2. Install Maven 3.6.3 or above
+3. Install Intellij IDEA
+
+### Download (preferably a stable version) WinAppDriver:
+- Download the WindowsApplicationDriver.msi file and install it, it is recommended to leave the default path.
+- Enable Developer Mode in Windows -> Settings -> Search for "Developer Settings" -> Enable the Developer Mode checkbox.
+- Download the Windows 10 SDK installer: <https://developer.microsoft.com/en-us/windows/downloads/windows-sdk/> Download Windows 10 SDK. Do not download the ISO.
+Once the installer is downloaded, perform the installation, it is recommended to leave the default installation path.
+Note: This tool provides us with the Inspector to map the objects of the desktop application we want to work with.
+
+After installing, navigate to the directory where WinAppDriver was installed and run WinAppDriver.exe.
+By default, the path should be: C:\Program Files (x86)\Windows Application Driver.  
+A console should open with the following message:
+       ![img_6.png](img_6.png)
 
 ### Install & Run WinAppDriver
 1. Download Windows Application Driver installer from <https://github.com/Microsoft/WinAppDriver/releases>
@@ -16,9 +47,18 @@ WinAppDriver.exe 10.0.0.10 4723/wd/hub
 ```
 
 > **Note**: You must run `WinAppDriver.exe` as **administrator** to listen to a different IP address and port.
-
+Download (preferably a stable version) WinAppDriver:
+- Download the WindowsApplicationDriver.msi file and install it, it is recommended to leave the default path.
+- Enable Developer Mode in Windows -> Settings -> Search for "Developer Settings" -> Enable the Developer Mode checkbox.
+- Download the Windows 10 SDK installer: Download Windows 10 SDK. Do not download the ISO.
+Once the installer is downloaded, perform the installation, it is recommended to leave the default installation path.
+Note: This tool provides us with the Inspector to map the objects of the desktop application we want to work with.
 ### Write an Automation Script
 Now that you've successfully installed WinAppDriver, you can get started with [authoring your first automation script](./Docs/AuthoringTestScripts.md)! 
+
+### Execution Result
+The execution result will be displayed in the console or the specified report directory, depending on your Maven configuration.
+  ![img_7.png](img_7.png)
 
 ### Supported APIs
 
@@ -34,3 +74,5 @@ Additional documentation on WinAppDriver and related topics can be found under [
    - [Authoring Test Scripts](./Docs/AuthoringTestScripts.md)
    - [Using the Selenium Grid](./Docs/SeleniumGrid.md) 
    - [Running On a Remote Machine](./Docs/RunningOnRemoteMachine.md)
+
+Reference Links: https://github.com/microsoft/WinAppDriver
