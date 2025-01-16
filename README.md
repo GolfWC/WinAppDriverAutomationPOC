@@ -63,6 +63,7 @@ Follow these steps:
 - Create a file named testng.xml in the root directory of your project.  
 - Add the following content to the testng.xml file:
 
+````
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Suite">
     <test name="Test">
@@ -72,12 +73,15 @@ Follow these steps:
         </classes>
     </test>
 </suite>
+````
 
 This testng.xml file defines a test suite named "Suite" and a test named "Test". It includes the TestRunner class.
 You can add other test classes by including additional <class> elements within the <classes> section.  
 To run the tests using Maven, you can use the following command:
 
+````
 mvn test -DsuiteXmlFile=testng.xml
+````
 
 ### Execution Result
 The execution result will be displayed in the console or the specified report directory, depending on your Maven configuration.
