@@ -57,6 +57,14 @@ public class ApplicationLoginPage extends BasePage {
         Thread.sleep(2000);
         driver.findElementByName("Search").click();
         Thread.sleep(3000);
+       String text = driver.findElementByXPath("//*[@LocalizedControlType='edit' and contains(@Name,'Row 0')]").getText();
+
+        System.out.println(text);
+    }
+
+    public void getTravelDetails() {
+        switchToWindow();
+        driver.findElementByName("Traveler Details").click();
     }
 
 
