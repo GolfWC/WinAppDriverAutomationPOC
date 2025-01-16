@@ -1,16 +1,28 @@
 package Utils;
 
 import io.appium.java_client.windows.WindowsDriver;
-import org.openqa.selenium.WebElement;
 
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.util.Properties;
 import java.util.Set;
 
 public class BasePage {
 
     protected WindowsDriver driver;
-
     public BasePage(WindowsDriver driver) {
         this.driver = driver;
+    }
+    Properties properties = new Properties();
+
+    public String getProperties(String key) {
+        try {
+            FileInputStream fileInputStream = new FileInputStream("src/test/resources/testData/travelSearchData.properties");
+            properties.load(fileInputStream);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return properties.getProperty(key);
     }
 
     public void switchToWindow(String expectedWindowTitle) {
@@ -31,9 +43,12 @@ public class BasePage {
             driver.switchTo().window(handle);
         }
     }
-//    public WebElement findElementByName(String name) {
-//        return driver.findElementByName(name);
-//    }
+
+
+
+
+
+
 
 
 

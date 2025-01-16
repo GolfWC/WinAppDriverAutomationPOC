@@ -3,36 +3,14 @@ package pages;
 
 import Utils.BasePage;
 import io.appium.java_client.windows.WindowsDriver;
-import org.openqa.selenium.support.PageFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 public class ApplicationLoginPage extends BasePage {
 
 
     public ApplicationLoginPage(WindowsDriver driver) {
         super(driver);
-
     }
-
-//    Set<String> allWindowHandles = driver.getWindowHandles();
-//    List<String> list = new ArrayList<String>(allWindowHandles);
-//    String currentWindowHandle = driver.getWindowHandle();
-//    public void switchToNewWindow() {
-//        for (String windowHandle : allWindowHandles) {
-//            if (!windowHandle.equals(currentWindowHandle)) {
-//                driver.switchTo().window(windowHandle);
-//                break;
-//            }
-//        }
-//    }
-//    public ApplicationLoginPage(WindowsDriver driver) {
-//        this.driver = driver;
-//        PageFactory.initElements(driver, this);
-//    }
-
 
     public void enterUsername(String name) {
         driver.findElementByAccessibilityId("tbUsername").click();
@@ -52,24 +30,33 @@ public class ApplicationLoginPage extends BasePage {
    ;
 
     public void clickOffButton() {
+
         switchToWindow();
         driver.findElementByName("Log off").click();
 
     }
 
-
-
     public void clickLogoutButton() throws InterruptedException {
-        // Switch to the new window
+        Thread.sleep(2000);
         switchToWindow();
-
-
+        Thread.sleep(2000);
         driver.findElementByAccessibilityId("iconExit").click();
-       // switchToNewWindow();
         driver.findElementByAccessibilityId("tbUsernameExit").sendKeys("Admin");
         driver.findElementByAccessibilityId("tbPasswordExit").sendKeys("securiport");
         driver.findElementByName("Exit").click();
-        Thread.sleep(5000);
+
+    }
+
+    public void enterLastName(String lastName) {
+        switchToWindow();
+        driver.findElementByAccessibilityId("txtLastName").click();
+        driver.findElementByAccessibilityId("txtLastName").sendKeys(lastName);
+    }
+
+    public void clickSearchButton() throws InterruptedException {
+        Thread.sleep(2000);
+        driver.findElementByName("Search").click();
+        Thread.sleep(3000);
     }
 
 
