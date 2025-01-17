@@ -1,8 +1,11 @@
 package Hook;
 
+import Utils.Screenshot;
 import io.appium.java_client.windows.WindowsDriver;
 import io.cucumber.java.After;
+import io.cucumber.java.AfterStep;
 import io.cucumber.java.Before;
+import io.cucumber.java.Scenario;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
@@ -30,10 +33,23 @@ public class Hook {
 
     }
 
+    @AfterStep
+    public void takeScreenshotOnFailure(Scenario scenario) {
+        if (scenario.isFailed()) {
+            Screenshot.takeScreenshot(driver, scenario.getName());
+        }
+    }
+
     @After
     public void tearDown() throws InterruptedException {
         if (driver != null) {
-            driver.quit();
+            try{
+                Screenshot.takeScreenshot(driver, "screenshot");
+                driver.quit();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
         }
         Thread.sleep(5000);
     }

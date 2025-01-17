@@ -65,7 +65,6 @@ public class ApplicationLoginPage extends BasePage {
 
 
 
-
     public void enterUsername(String name) {
         usernameText.click();
         usernameText.sendKeys(name);
@@ -79,6 +78,7 @@ public class ApplicationLoginPage extends BasePage {
 
     public void clickLoginButton() {
         loginButton.click();
+
     }
 
     public void clickOffButton() {
