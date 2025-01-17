@@ -50,8 +50,9 @@ public class ApplicationLoginStep  {
         loginPage.clickSearchButton();
     }
     @Then("I should see the travel details displayed")
-    public void i_should_see_the_travel_details_displayed() {
-        System.out.println("Travel details displayed");
+    public void i_should_see_the_travel_details_displayed() throws InterruptedException {
+       // loginPage.getTravelDetails("Last Name", "0");
+        loginPage.viewTravelDetails("view", "0");
     }
 
 
