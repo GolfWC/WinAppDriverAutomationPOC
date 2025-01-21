@@ -65,7 +65,6 @@ public class ApplicationLoginPage extends BasePage {
 
 
 
-
     public void enterUsername(String name) {
         usernameText.click();
         usernameText.sendKeys(name);
@@ -79,6 +78,7 @@ public class ApplicationLoginPage extends BasePage {
 
     public void clickLoginButton() {
         loginButton.click();
+
     }
 
     public void clickOffButton() {
@@ -106,12 +106,12 @@ public class ApplicationLoginPage extends BasePage {
     }
 
     public void clickAdminExitButton() throws InterruptedException {
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         adminExitButton.click();
     }
 
     public void enterLastName(String lastName) throws InterruptedException {
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         switchToWindow();
         lastNameText.click();
         lastNameText.sendKeys(lastName);

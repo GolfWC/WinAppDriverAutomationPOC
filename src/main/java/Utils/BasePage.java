@@ -19,7 +19,7 @@ import java.util.Set;
 public class BasePage {
 
     private static final Logger log = LoggerFactory.getLogger(BasePage.class);
-    protected WindowsDriver driver;
+    public static WindowsDriver driver;
 
     public BasePage(WindowsDriver driver) {
         this.driver = driver;

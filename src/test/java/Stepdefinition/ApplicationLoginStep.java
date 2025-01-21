@@ -10,11 +10,14 @@ import pages.ApplicationLoginPage;
 
 import java.util.Properties;
 
+import static Utils.Screenshot.takeScreenshot;
+
 public class ApplicationLoginStep  {
 
     WindowsDriver driver = Hook.getDriver();
     ApplicationLoginPage loginPage = new ApplicationLoginPage(driver);
     BasePage basePage = new BasePage(driver);
+
 
     @Given("I am open the application")
     public void i_am_open_the_application() {
@@ -48,6 +51,7 @@ public class ApplicationLoginStep  {
     @When("I click on the search button")
     public void i_click_on_the_search_button() throws InterruptedException {
         loginPage.clickSearchButton();
+
     }
     @Then("I should see the travel details displayed")
     public void i_should_see_the_travel_details_displayed() throws InterruptedException {
