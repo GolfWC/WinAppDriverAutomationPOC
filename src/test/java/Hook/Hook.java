@@ -1,17 +1,22 @@
 package Hook;
 
+import Utils.BasePage;
 import Utils.Screenshot;
 import io.appium.java_client.windows.WindowsDriver;
-import io.cucumber.java.After;
-import io.cucumber.java.AfterStep;
-import io.cucumber.java.Before;
-import io.cucumber.java.Scenario;
+import io.cucumber.java.*;
+import io.cucumber.plugin.event.Node;
+import org.openqa.selenium.NoSuchWindowException;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import java.net.URL;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 public class Hook {
     private static WindowsDriver driver;
+    BasePage basePage ;
+    Logger log = Logger.getLogger(Hook.class.getName());
 
     @Before
         public void setUp() {
@@ -34,22 +39,29 @@ public class Hook {
     }
 
     @AfterStep
-    public void takeScreenshotOnFailure(Scenario scenario) {
-        if (scenario.isFailed()) {
-            Screenshot.takeScreenshot(driver, scenario.getName());
+    public void takeScreenshotAfterEachStep(Scenario scenario) {
+        if (driver != null) {
+            try {
+                final byte[] screenshot = BasePage.driver.getScreenshotAs(OutputType.BYTES);
+                scenario.attach(screenshot, "image/png", scenario.getName());
+                log.info("Screenshot taken for step: " + scenario.getName());
+            } catch (NoSuchWindowException e) {
+                log.warning("Window already closed, unable to take screenshot.");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
     @After
-    public void tearDown() throws InterruptedException {
-        if (driver != null) {
-            try{
-                Screenshot.takeScreenshot(driver, "screenshot");
-                driver.quit();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    public void tearDown(Scenario scenario) throws InterruptedException {
 
+        if (driver != null) {
+            if (scenario.isFailed()) {
+                final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+                scenario.attach(screenshot, "image/png", scenario.getName());
+            }
+            driver.quit();
         }
         Thread.sleep(5000);
     }

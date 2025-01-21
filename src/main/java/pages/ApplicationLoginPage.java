@@ -106,12 +106,12 @@ public class ApplicationLoginPage extends BasePage {
     }
 
     public void clickAdminExitButton() throws InterruptedException {
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         adminExitButton.click();
     }
 
     public void enterLastName(String lastName) throws InterruptedException {
-        Thread.sleep(1000);
+        Thread.sleep(2000);
         switchToWindow();
         lastNameText.click();
         lastNameText.sendKeys(lastName);

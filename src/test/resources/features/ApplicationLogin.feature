@@ -8,8 +8,7 @@ Feature:
 #        When I click on the logout button
 #        Then I should be logged out of the application
 
-
-
+    @smoke
     Scenario: Validate travel search by last name
         Given I am open the application
         When I enter my username and password
