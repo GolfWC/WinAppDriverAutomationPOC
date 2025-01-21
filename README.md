@@ -82,6 +82,11 @@ To run the tests using Maven, you can use the following command:
 ````
 mvn test -DsuiteXmlFile=testng.xml
 ````
+To generate Cucumber HTML report, you can use the following command:
+
+````
+mvn verify -DskipTests
+````
 
 ### Execution Result
 The execution result will be displayed in the console or the specified report directory, depending on your Maven configuration.
