@@ -49,6 +49,18 @@
       <version>7.13.0</version>
     </dependency>
 
+    <!-- https://mvnrepository.com/artifact/com.github.stephenc.monte/monte-screen-recorder -->
+    <dependency>
+      <groupId>com.github.stephenc.monte</groupId>
+      <artifactId>monte-screen-recorder</artifactId>
+      <version>0.7.7.0</version>
+    </dependency>
+
+    <dependency>
+      <groupId>net.bramp.ffmpeg</groupId>
+      <artifactId>ffmpeg</artifactId>
+      <version>0.6.2</version>
+    </dependency>
 
 
   </dependencies>

@@ -108,3 +108,31 @@ Additional documentation on WinAppDriver and related topics can be found under [
    - [Running On a Remote Machine](./Docs/RunningOnRemoteMachine.md)
 
 Reference Links: https://github.com/microsoft/WinAppDriver
+
+
+## Add video recording to your Windows application automation. 
+When running automated tests on a Windows application, it can be helpful to record a video of the test execution to help diagnose issues and provide additional context.
+One way to achieve this is by using a library like Monte Media Library to record the screen during the test execution. 
+1. Add the Monte Media Library dependency to your pom.xml:
+
+````
+<dependency>
+    <groupId>org.monte</groupId>
+    <artifactId>monte-screen-recorder</artifactId>
+    <version>0.7.7</version>
+</dependency>
+````
+2. Create a ScreenRecorder class to handle the video recording
+3. Start the video recording before the test execution and stop it after the test execution
+4. Add the video recording file to the test report
+5. Run the tests and view the video recording in the test report
+
+## Add vdo converter 
+To download FFmpeg, follow these steps:  
+1. Go to the FFmpeg download page.
+2. Select your operating system (e.g., Windows).
+3. For Windows, click on the link under "Windows builds from gyan.dev".
+4. On the new page, scroll down to the "Release builds" section.
+5. Download the "ffmpeg-release-essentials.zip" file.
+6. After downloading, extract the contents of the ZIP file to a location on your computer, 
+such as C:\ffmpeg. The ffmpeg.exe and ffprobe.exe files will be located in the bin directory of the extracted folder.
