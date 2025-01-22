@@ -1,20 +1,15 @@
 package Hook;
 
-import Utils.BasePage;
-import Utils.Screenshot;
-import Utils.SpecializedScreenRecorder;
-import Utils.VideoConverter;
+import Utils.*;
 import io.appium.java_client.windows.WindowsDriver;
 import io.cucumber.java.*;
 import org.monte.media.Format;
 import org.monte.media.FormatKeys;
 import org.monte.media.math.Rational;
-import org.monte.screenrecorder.ScreenRecorder;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.remote.DesiredCapabilities;
-
 import java.awt.*;
 import java.io.File;
 import java.net.URL;
@@ -93,6 +88,13 @@ public class Hook {
             driver.quit();
         }
         Thread.sleep(5000);
+//        // Send email notification
+//        String to = "wchainan@securiport.com";
+//        String subject = "Test Report: " + scenario.getName();
+//        String body = "The test " + scenario.getName() + " has finished. Please find the attached report.";
+//        String attachmentPath = "path/to/test/report"; // Update with the actual path to the test report
+//
+//        EmailSender.sendEmail(to, subject, body, attachmentPath);
     }
     private void startRecording(String testName) throws Exception {
         File file = new File("C:\\Users\\WChainan\\Desktop\\Repository\\winAppDriver\\recordings");
