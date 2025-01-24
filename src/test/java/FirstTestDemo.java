@@ -15,8 +15,8 @@
 //    public void setUp() {
 //
 //        DesiredCapabilities capabilities = new DesiredCapabilities();
-//    //    capabilities.setCapability("app", "c:\\windows\\system32\\notepad.exe");
-//        capabilities.setCapability("app", "C:\\Securiport\\IICS_iics-15.0-releaseiics-15.0-release-20250107.1\\Clients\\Traveler Search\\Securiport.BMSys.WinApp.TravelersSearch.exe");
+//        capabilities.setCapability("app", "c:\\windows\\system32\\notepad.exe");
+// //       capabilities.setCapability("app", "C:\\ProgramData\\Microsoft\\Windows\\Start Menu\\Programs\\Accessories");
 //        capabilities.setCapability("platformName", "Windows");
 //        capabilities.setCapability("deviceName", "WindowsPC");
 //
