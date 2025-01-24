@@ -14,6 +14,9 @@ import java.awt.*;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Files;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 import java.util.logging.Logger;
 
@@ -26,7 +29,14 @@ public class Hook {
 
     private SpecializedScreenRecorder screenRecorder;
     Logger log = Logger.getLogger(Hook.class.getName());
+    private String reportUUID;
+    private static List<TestResult> testResults = new ArrayList<>();
+    private static SuiteResult suiteResult = new SuiteResult(0, 0, 0, 0);
 
+    static {
+        // Register shutdown hook to send summary to Teams
+        Runtime.getRuntime().addShutdownHook(new Thread(Hook::sendSummaryToTeams));
+    }
     @Before
         public void setUp(Scenario scenario) {
         DesiredCapabilities capabilities = new DesiredCapabilities();
@@ -45,7 +55,8 @@ public class Hook {
         }
 
         driver.manage().timeouts().implicitlyWait(20, TimeUnit.SECONDS);
-
+        // Generate and store the UUID for the report
+        reportUUID = UUID.randomUUID().toString();
     }
 
     @AfterStep
@@ -61,40 +72,74 @@ public class Hook {
                 e.printStackTrace();
             }
         }
+
     }
 
-    @After
-    public void tearDown(Scenario scenario) throws Exception {
-
-//        if (driver != null) {
-//            if (scenario.isFailed()) {
-//                final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-//                scenario.attach(screenshot, "image/png", scenario.getName());
-//            }
-//            driver.quit();
-//        }
-        if (driver != null) {
-            if (scenario.isFailed()) {
-                final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-                scenario.attach(screenshot, "image/png", scenario.getName());
-            }
-            stopRecording();
-            File aviFile = new File("C:\\Users\\WChainan\\Desktop\\Repository\\winAppDriver\\recordings\\" + scenario.getName() + ".avi");
-            File mp4File = new File("C:\\Users\\WChainan\\Desktop\\Repository\\winAppDriver\\recordings\\" + scenario.getName() + ".mp4");
-            if (aviFile.exists()) {
-                VideoConverter.convertAviToMp4(aviFile, mp4File);
-                scenario.attach(Files.readAllBytes(mp4File.toPath()), "video/mp4", scenario.getName() + ".mp4");
-            }
-            driver.quit();
+@After
+public void tearDown(Scenario scenario) throws Exception {
+    if (driver != null) {
+        if (scenario.isFailed()) {
+            final byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            scenario.attach(screenshot, "image/png", scenario.getName());
         }
-        Thread.sleep(5000);
-//        // Send email notification
-//        String to = "wchainan@securiport.com";
-//        String subject = "Test Report: " + scenario.getName();
-//        String body = "The test " + scenario.getName() + " has finished. Please find the attached report.";
-//        String attachmentPath = "path/to/test/report"; // Update with the actual path to the test report
-//
-//        EmailSender.sendEmail(to, subject, body, attachmentPath);
+        stopRecording();
+        File aviFile = new File("C:\\Users\\WChainan\\Desktop\\Repository\\winAppDriver\\recordings\\" + scenario.getName() + ".avi");
+        File mp4File = new File("C:\\Users\\WChainan\\Desktop\\Repository\\winAppDriver\\recordings\\" + scenario.getName() + ".mp4");
+        if (aviFile.exists()) {
+            VideoConverter.convertAviToMp4(aviFile, mp4File);
+            scenario.attach(Files.readAllBytes(mp4File.toPath()), "video/mp4", scenario.getName() + ".mp4");
+        }
+        driver.quit();
+    }
+    Thread.sleep(5000);
+
+    // Generate the report link dynamically
+    // String reportLink = "https://reports.cucumber.io/reports/" + reportUUID;
+
+    // Collect test result
+    //testResults.add(new TestResult(scenario.getName(), scenario.isFailed(), reportLink));
+
+    // Update suite result
+    suiteResult = new SuiteResult(
+            suiteResult.getTotalTests() + 1,
+            suiteResult.getPasses() + (scenario.isFailed() ? 0 : 1),
+            suiteResult.getFailures() + (scenario.isFailed() ? 1 : 0),
+            suiteResult.getSkips()
+    );
+
+
+    //        // Send email notification
+    //        String to = "wchainan@securiport.com";
+    //        String subject = "Test Report: " + scenario.getName();
+    //        String body = "The test " + scenario.getName() + " has finished. Please find the attached report.";
+    //        String attachmentPath = "path/to/test/report"; // Update with the actual path to the test report
+    //       EmailSender.sendEmail(to, subject, body, attachmentPath);
+}
+
+    @AfterAll
+    public static void sendSummaryToTeams() {
+        StringBuilder message = new StringBuilder();
+        message.append("┌──────────────────────────────────────────────────────────────────────────┐\n");
+        message.append("│ Test Results Summary                                                     │\n");
+        message.append("└──────────────────────────────────────────────────────────────────────────┘\n");
+        message.append("===============================================\n");
+
+        for (TestResult result : testResults) {
+            message.append("Scenario: ").append(result.getScenarioName()).append("\n");
+            message.append("Status: ").append(result.isFailed() ? "Failed" : "Passed").append("\n");
+//            message.append("Report Link: ").append(result.getReportLink()).append("\n");
+            message.append("===============================================\n");
+        }
+
+        message.append("Default Suite\n");
+        message.append("Total tests run: ").append(suiteResult.getTotalTests()).append(", ");
+        message.append("Passes: ").append(suiteResult.getPasses()).append(", ");
+        message.append("Failures: ").append(suiteResult.getFailures()).append(", ");
+        message.append("Skips: ").append(suiteResult.getSkips()).append("\n");
+        message.append("===============================================\n");
+
+
+        TeamsNotifier.sendMessage(message.toString());
     }
     private void startRecording(String testName) throws Exception {
         File file = new File("C:\\Users\\WChainan\\Desktop\\Repository\\winAppDriver\\recordings");
@@ -124,3 +169,4 @@ public class Hook {
     }
 
 }
+
