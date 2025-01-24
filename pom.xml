@@ -62,6 +62,7 @@
       <version>0.6.2</version>
     </dependency>
 
+<!--This dependency for email notification -->
     <dependency>
       <groupId>com.sun.mail</groupId>
       <artifactId>javax.mail</artifactId>
@@ -73,7 +74,24 @@
       <artifactId>google-auth-library-oauth2-http</artifactId>
       <version>1.0.0</version>
     </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpclient</artifactId>
+      <version>4.5.13</version>
+    </dependency>
+<!--This apache poi dependency for data retrieve form excel files-->
+    <dependency>
+      <groupId>org.apache.poi</groupId>
+      <artifactId>poi-ooxml</artifactId>
+      <version>5.2.3</version>
+    </dependency>
 
+<!--This dependency for database connection-->
+    <dependency>
+      <groupId>com.microsoft.sqlserver</groupId>
+      <artifactId>mssql-jdbc</artifactId>
+      <version>9.4.0.jre8</version>
+    </dependency>
 
   </dependencies>
   <build>

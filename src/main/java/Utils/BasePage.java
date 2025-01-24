@@ -65,10 +65,14 @@ public class BasePage {
     }
 
     public void viewTableData(String tableName, String rowNumber) throws InterruptedException {
-        WebElement table = driver.findElement(By.xpath("//*[@LocalizedControlType='button' and contains(@Name,'"+tableName+ " Row "+rowNumber+"')]"));
+//        WebElement table = driver.findElement(By.xpath("//*[@LocalizedControlType='button' and contains(@Name,'"+tableName+ " Row "+rowNumber+"')]"));
+//        Thread.sleep(2000);
+//        moveToOffset(1650,537);
+//        doubleClick(table);
+        WebElement table = driver.findElement(By.xpath("//*[@LocalizedControlType='button' and contains(@Name,'" + tableName + " Row " + rowNumber + "')]"));
+        Actions actions = new Actions(driver);
+        actions.moveToElement(table, table.getSize().getWidth() - 1, table.getSize().getHeight() / 2).click().perform();
         Thread.sleep(2000);
-        moveToOffset(1650,537);
-        doubleClick(table);
         log.info("Clicked on the table data");
         Thread.sleep(5000);
 
@@ -226,6 +230,21 @@ public class BasePage {
 
     public void switchToFrame(WebElement frameElement) {
         driver.switchTo().frame(frameElement);
+    }
+
+    public void uploadFile(String filePath, By uploadButtonLocator) {
+        WebElement uploadElement = driver.findElement(uploadButtonLocator);
+        uploadElement.sendKeys(filePath);
+    }
+
+    public void submitForm(By submitButtonLocator) {
+        WebElement submitButton = driver.findElement(submitButtonLocator);
+        submitButton.click();
+    }
+
+    public String getUploadStatus(By statusLocator) {
+        WebElement statusElement = driver.findElement(statusLocator);
+        return statusElement.getText();
     }
 
 
