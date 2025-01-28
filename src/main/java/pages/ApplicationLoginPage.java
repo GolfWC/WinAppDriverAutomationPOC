@@ -23,7 +23,7 @@ public class ApplicationLoginPage extends BasePage {
 
     private static final Logger log = LoggerFactory.getLogger(ApplicationLoginPage.class);
 
-    public ApplicationLoginPage(WindowsDriver driver) {
+    public ApplicationLoginPage(WindowsDriver<WebElement> driver) {
         super(driver);
         PageFactory.initElements(driver, this);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Set implicit wait

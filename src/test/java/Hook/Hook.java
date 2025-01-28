@@ -9,6 +9,7 @@ import org.monte.media.math.Rational;
 import org.openqa.selenium.NoSuchWindowException;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import java.awt.*;
 import java.io.File;
@@ -24,7 +25,7 @@ import static org.monte.media.FormatKeys.*;
 import static org.monte.media.VideoFormatKeys.*;
 
 public class Hook {
-    private static WindowsDriver driver;
+    private static WindowsDriver<WebElement> driver;
     BasePage basePage ;
 
     private SpecializedScreenRecorder screenRecorder;
@@ -164,7 +165,7 @@ public void tearDown(Scenario scenario) throws Exception {
     private void stopRecording() throws Exception {
         this.screenRecorder.stop();
     }
-    public static WindowsDriver getDriver() {
+    public static WindowsDriver<WebElement> getDriver() {
         return driver;
     }
 

@@ -6,6 +6,7 @@ import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import Hook.Hook;
+import org.openqa.selenium.WebElement;
 import pages.ApplicationLoginPage;
 
 import java.util.Properties;
@@ -14,7 +15,7 @@ import static Utils.Screenshot.takeScreenshot;
 
 public class ApplicationLoginStep  {
 
-    WindowsDriver driver = Hook.getDriver();
+    WindowsDriver<WebElement> driver = Hook.getDriver();
     ApplicationLoginPage loginPage = new ApplicationLoginPage(driver);
     BasePage basePage = new BasePage(driver);
 
