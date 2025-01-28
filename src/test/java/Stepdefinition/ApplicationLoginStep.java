@@ -47,10 +47,13 @@ public class ApplicationLoginStep  {
     @When("I search for a travel by last name")
     public void i_search_for_a_travel_by_last_name() throws InterruptedException {
         loginPage.enterLastName("GOLF");
+
     }
     @When("I click on the search button")
     public void i_click_on_the_search_button() throws InterruptedException {
         loginPage.clickSearchButton();
+
+
 
     }
     @Then("I should see the travel details displayed")
@@ -58,6 +61,18 @@ public class ApplicationLoginStep  {
        // loginPage.getTravelDetails("Last Name", "0");
         loginPage.viewTravelDetails("view", "0");
     }
+
+    @When("I search for a travel by year")
+    public void i_search_for_a_travel_by_year() throws InterruptedException {
+        loginPage.entertextYear();
+
+    }
+
+    @Then("I should see an error message pop up")
+    public void i_should_see_an_error_message_pop_up() throws InterruptedException {
+        loginPage.invalidDateRange();
+    }
+
 
 
 }
