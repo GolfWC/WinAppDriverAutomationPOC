@@ -11,6 +11,9 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.testng.Assert;
+
+import java.util.List;
 
 
 public class ApplicationLoginPage extends BasePage {
@@ -53,8 +56,34 @@ public class ApplicationLoginPage extends BasePage {
     @FindBy(xpath = "//*[@LocalizedControlType='edit' and @AutomationId='txtLastName']")
     public WebElement lastNameText;
 
+    @FindBy(xpath = "//*[@LocalizedControlType='check box' and @AutomationId='checkBoxLastNameExact']")
+    public WebElement lastNameExactCheckBox;
+
+    @FindBy(xpath = "//*[@LocalizedControlType='edit' and @AutomationId='txtDocument']")
+    public WebElement documentText;
+
+    @FindBy(xpath = "//*[@LocalizedControlType='check box' and @AutomationId='checkBoxDocumentIDExact']")
+    public WebElement documentExactCheckBox;
+
+    @FindBy(xpath = "//*[@LocalizedControlType='edit' and @AutomationId='txtFirstName']")
+    public WebElement firstNameText;
+
+    @FindBy(xpath = "//*[@LocalizedControlType='check box' and @AutomationId='checkBoxFirstNameExact']")
+    public WebElement firstNameExactCheckBox;
+
+    @FindBy(xpath = "//*[@LocalizedControlType='edit' and @AutomationId='txtVISA']")
+    public WebElement visaText;
+
+    @FindBy(xpath = "//*[@LocalizedControlType='check box' and @AutomationId='checkBoxVisaIDExact']")
+    public WebElement visaExactCheckBox;
+
+//    @FindBy(xpath = "//*[@LocalizedControlType='edit' and @AutomationId='txtDateYear']")
+//    public WebElement yearText;
+
+
     @FindBy(xpath = "//*[@LocalizedControlType='button' and @Name='Search']")
     public WebElement searchButton;
+
 
 
 
@@ -87,9 +116,9 @@ public class ApplicationLoginPage extends BasePage {
     }
 
     public void clickLogoutButton() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         switchToWindow();
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         exitButton.click();
     }
 
@@ -106,19 +135,22 @@ public class ApplicationLoginPage extends BasePage {
     }
 
     public void clickAdminExitButton() throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         adminExitButton.click();
     }
 
     public void enterLastName(String lastName) throws InterruptedException {
-        Thread.sleep(2000);
+        Thread.sleep(1000);
         switchToWindow();
         lastNameText.click();
         lastNameText.sendKeys(lastName);
     }
 
+
+
+
     public void clickSearchButton() throws InterruptedException {
-        Thread.sleep(1000);
+    //    Thread.sleep(1000);
         searchButton.click();
         Thread.sleep(1000);
     }
@@ -136,9 +168,43 @@ public class ApplicationLoginPage extends BasePage {
     }
 
 
+    public void entertextYear() throws InterruptedException {
+
+        Thread.sleep(1000);
+        switchToWindow();
+
+        List<WebElement> getYearTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateYear']"));
+        System.out.println("The size of the year text fields is " + getYearTextFields.size());
+        getYearTextFields.get(0).click();
+        getYearTextFields.get(0).sendKeys("1995");
+        getYearTextFields.get(1).click();
+        getYearTextFields.get(1).sendKeys("1950");
+    }
 
 
+    @FindBy(name="Invalid Date" )
+    public WebElement invalidDateRange;
 
+    @FindBy(name="OK")
+    public WebElement okButton;
+
+    public void invalidDateRange() throws InterruptedException {
+
+        // Switch to the pop-up window
+//        String mainWindowHandle = driver.getWindowHandle();
+//        for (String windowHandle : driver.getWindowHandles()) {
+//            if (!windowHandle.equals(mainWindowHandle)) {
+//                driver.switchTo().window(windowHandle);
+//                break;
+//            }
+//        }
+        switchToPopUpWindow();
+        // Interact with elements in the pop-up window
+        WebElement warningMessage = driver.findElement(By.name("Invalid Date"));
+        Assert.assertTrue(warningMessage.isDisplayed());
+        WebElement okButton = driver.findElement(By.name("OK"));
+        okButton.click();
+    }
 
 }
 
