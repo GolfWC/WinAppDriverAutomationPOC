@@ -37,7 +37,7 @@ public class ApplicationLoginStep  {
         loginPage.clickOffButton();
     }
     @Then("I should be logged out of the application")
-    public void i_should_be_logged_out_of_the_application() throws InterruptedException {
+    public void i_should_be_logged_out_of_the_application()  {
         loginPage.clickLogoutButton();
         loginPage.enterAdminExitUsername(basePage.getProperties("adminExitUsername"));
         loginPage.enterAdminExitPassword(basePage.getProperties("adminExitPassword"));
@@ -45,12 +45,12 @@ public class ApplicationLoginStep  {
     }
 
     @When("I search for a travel by last name")
-    public void i_search_for_a_travel_by_last_name() throws InterruptedException {
+    public void i_search_for_a_travel_by_last_name()  {
         loginPage.enterLastName("GOLF");
 
     }
     @When("I click on the search button")
-    public void i_click_on_the_search_button() throws InterruptedException {
+    public void i_click_on_the_search_button() {
         loginPage.clickSearchButton();
 
 
@@ -63,13 +63,17 @@ public class ApplicationLoginStep  {
     }
 
     @When("I search for a travel by year")
-    public void i_search_for_a_travel_by_year() throws InterruptedException {
-        loginPage.entertextYear();
+    public void i_search_for_a_travel_by_year()  {
+        loginPage.enterStartDateOfBirth("1990", "01", "01");
+//        loginPage.enterEndDateOfBirth("2000", "02", "02");
+//        loginPage.clickDateOfBirthRange("31-40");
+//        loginPage.enterStartEnrollmentDate("2020", "01", "01");
+//        loginPage.enterEndEnrollmentDate("2025", "02", "02");
 
     }
 
     @Then("I should see an error message pop up")
-    public void i_should_see_an_error_message_pop_up() throws InterruptedException {
+    public void i_should_see_an_error_message_pop_up()  {
         loginPage.invalidDateRange();
     }
 
