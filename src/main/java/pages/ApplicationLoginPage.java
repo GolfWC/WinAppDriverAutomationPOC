@@ -2,6 +2,7 @@ package pages;
 
 
 import Utils.BasePage;
+import io.appium.java_client.MobileBy;
 import io.appium.java_client.windows.WindowsDriver;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -14,6 +15,7 @@ import org.slf4j.LoggerFactory;
 import org.testng.Assert;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 
 public class ApplicationLoginPage extends BasePage {
@@ -24,6 +26,7 @@ public class ApplicationLoginPage extends BasePage {
     public ApplicationLoginPage(WindowsDriver driver) {
         super(driver);
         PageFactory.initElements(driver, this);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Set implicit wait
     }
 
 
@@ -115,44 +118,74 @@ public class ApplicationLoginPage extends BasePage {
         offButton.click();
     }
 
-    public void clickLogoutButton() throws InterruptedException {
-        Thread.sleep(1000);
+    public void clickLogoutButton() {
         switchToWindow();
-        Thread.sleep(1000);
         exitButton.click();
     }
 
-    public void enterAdminExitUsername(String username) throws InterruptedException {
-        Thread.sleep(1000);
+    public void enterAdminExitUsername(String username)  {
         exitUsernameText.click();
         exitUsernameText.sendKeys(username);
     }
 
-    public void enterAdminExitPassword(String password) throws InterruptedException {
-        Thread.sleep(1000);
+    public void enterAdminExitPassword(String password)  {
+
         exitPasswordText.click();
         exitPasswordText.sendKeys(password);
     }
 
-    public void clickAdminExitButton() throws InterruptedException {
-        Thread.sleep(1000);
+    public void clickAdminExitButton() {
+
         adminExitButton.click();
     }
 
-    public void enterLastName(String lastName) throws InterruptedException {
-        Thread.sleep(1000);
+    public void enterLastName(String lastName)  {
+
         switchToWindow();
         lastNameText.click();
         lastNameText.sendKeys(lastName);
     }
 
+    public void clickOnLastNameExactCheckBox()  {
+        lastNameExactCheckBox.click();
+    }
+
+    public void enterDocument(String document)  {
+        switchToWindow();
+        documentText.click();
+        documentText.sendKeys(document);
+    }
+
+    public void clickOnDocumentExactCheckBox()  {
+        documentExactCheckBox.click();
+    }
+
+    public void enterFirstName(String firstName)  {
+        switchToWindow();
+        firstNameText.click();
+        firstNameText.sendKeys(firstName);
+    }
+
+    public void clickOnFirstNameExactCheckBox()  {
+        firstNameExactCheckBox.click();
+    }
+
+    public void enterVisa(String visa)  {
+        switchToWindow();
+        visaText.click();
+        visaText.sendKeys(visa);
+    }
+
+    public void clickOnVisaExactCheckBox()  {
+        visaExactCheckBox.click();
+    }
 
 
 
-    public void clickSearchButton() throws InterruptedException {
-    //    Thread.sleep(1000);
+
+    public void clickSearchButton()  {
+
         searchButton.click();
-        Thread.sleep(1000);
     }
 
     public void getTravelDetails(String tableName, String rowNumber) {
@@ -168,18 +201,102 @@ public class ApplicationLoginPage extends BasePage {
     }
 
 
-    public void entertextYear() throws InterruptedException {
+    public void enterStartDateOfBirth(String year, String month, String day)  {
 
-        Thread.sleep(1000);
         switchToWindow();
-
         List<WebElement> getYearTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateYear']"));
         System.out.println("The size of the year text fields is " + getYearTextFields.size());
         getYearTextFields.get(0).click();
-        getYearTextFields.get(0).sendKeys("1995");
-        getYearTextFields.get(1).click();
-        getYearTextFields.get(1).sendKeys("1950");
+        getYearTextFields.get(0).sendKeys(year);
+
+       List<WebElement> getMonthTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateMonth']"));
+        System.out.println("The size of the month text fields is " + getMonthTextFields.size());
+        getMonthTextFields.get(0).click();
+        getMonthTextFields.get(0).sendKeys(month);
+
+        List<WebElement> getDayTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateDay']"));
+        System.out.println("The size of the day text fields is " + getDayTextFields.size());
+        getDayTextFields.get(0).click();
+        getDayTextFields.get(0).sendKeys(day);
+
     }
+
+
+    public void enterEndDateOfBirth(String year, String month, String day)  {
+        switchToWindow();
+        List<WebElement> getYearTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateYear']"));
+        System.out.println("The size of the year text fields is " + getYearTextFields.size());
+        getYearTextFields.get(1).click();
+        getYearTextFields.get(1).sendKeys(year);
+
+       List<WebElement> getMonthTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateMonth']"));
+        System.out.println("The size of the month text fields is " + getMonthTextFields.size());
+        getMonthTextFields.get(1).click();
+        getMonthTextFields.get(1).sendKeys(month);
+
+        List<WebElement> getDayTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateDay']"));
+        System.out.println("The size of the day text fields is " + getDayTextFields.size());
+        getDayTextFields.get(1).click();
+        getDayTextFields.get(1).sendKeys(day);
+
+    }
+
+    public void enterEndEnrollmentDate(String year, String month, String day)  {
+        switchToWindow();
+        List<WebElement> getYearTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateYear']"));
+        System.out.println("The size of the year text fields is " + getYearTextFields.size());
+        getYearTextFields.get(2).click();
+        getYearTextFields.get(2).sendKeys(year);
+
+
+        List<WebElement> getMonthTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateMonth']"));
+        System.out.println("The size of the month text fields is " + getMonthTextFields.size());
+        getMonthTextFields.get(2).click();
+        getMonthTextFields.get(2).sendKeys(month);
+
+        List<WebElement> getDayTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateDay']"));
+        System.out.println("The size of the day text fields is " + getDayTextFields.size());
+        getDayTextFields.get(2).click();
+        getDayTextFields.get(2).sendKeys(day);
+
+
+    }
+
+    public void enterStartEnrollmentDate(String year, String month, String day)  {
+        switchToWindow();
+        List<WebElement> getYearTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateYear']"));
+        System.out.println("The size of the year text fields is " + getYearTextFields.size());
+        getYearTextFields.get(3).click();
+        getYearTextFields.get(3).sendKeys(year);
+
+        List<WebElement> getMonthTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateMonth']"));
+        System.out.println("The size of the month text fields is " + getMonthTextFields.size());
+        getMonthTextFields.get(3).click();
+        getMonthTextFields.get(3).sendKeys(month);
+
+        List<WebElement> getDayTextFields =driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and @AutomationId='txtDateDay']"));
+        System.out.println("The size of the day text fields is " + getDayTextFields.size());
+        getDayTextFields.get(3).click();
+        getDayTextFields.get(3).sendKeys(day);
+
+    }
+
+
+    @FindBy(xpath = "//*[@LocalizedControlType='combo box' and @AutomationId='ddlDOBRange']")
+    public WebElement dateOfBirthRange;
+
+
+    public void clickDateOfBirthRange(String range)  {
+        switchToWindow();
+        dateOfBirthRange.click();
+
+        switchToPopUpWindow();
+        driver.findElementByName(range).click();
+
+
+
+    }
+
 
 
     @FindBy(name="Invalid Date" )
@@ -188,16 +305,8 @@ public class ApplicationLoginPage extends BasePage {
     @FindBy(name="OK")
     public WebElement okButton;
 
-    public void invalidDateRange() throws InterruptedException {
+    public void invalidDateRange()  {
 
-        // Switch to the pop-up window
-//        String mainWindowHandle = driver.getWindowHandle();
-//        for (String windowHandle : driver.getWindowHandles()) {
-//            if (!windowHandle.equals(mainWindowHandle)) {
-//                driver.switchTo().window(windowHandle);
-//                break;
-//            }
-//        }
         switchToPopUpWindow();
         // Interact with elements in the pop-up window
         WebElement warningMessage = driver.findElement(By.name("Invalid Date"));
