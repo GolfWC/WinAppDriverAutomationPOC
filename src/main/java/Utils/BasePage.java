@@ -57,6 +57,16 @@ public class BasePage {
         }
     }
 
+    public void switchToPopUpWindow() {
+        String mainWindowHandle = driver.getWindowHandle();
+        for (String windowHandle : driver.getWindowHandles()) {
+            if (!windowHandle.equals(mainWindowHandle)) {
+                driver.switchTo().window(windowHandle);
+                break;
+            }
+        }
+    }
+
 
     public String readTableData(String tableName, String rowNumber) {
         WebElement table = driver.findElement(By.xpath("//*[@LocalizedControlType='edit' and contains(@Name,'"+tableName+ " Row "+rowNumber+"')]"));
