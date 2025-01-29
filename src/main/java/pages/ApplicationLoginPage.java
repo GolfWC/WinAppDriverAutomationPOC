@@ -76,14 +76,23 @@ public class ApplicationLoginPage extends BasePage {
     @FindBy(xpath = "//*[@LocalizedControlType='check box' and @AutomationId='checkBoxVisaIDExact']")
     public WebElement visaExactCheckBox;
 
-//    @FindBy(xpath = "//*[@LocalizedControlType='edit' and @AutomationId='txtDateYear']")
-//    public WebElement yearText;
+    @FindBy(xpath = "//*[@LocalizedControlType='combo box' and @AutomationId='ddlDOBRange']")
+    public WebElement dateOfBirthRange;
 
+    @FindBy(xpath = "//*[@LocalizedControlType='combo box' and @AutomationId='cbPeriod']")
+    public WebElement enrollmentDateRange;
+
+    @FindBy(name="Invalid Date" )
+    public WebElement invalidDateRange;
+
+    @FindBy(name="OK")
+    public WebElement okButton;
 
     @FindBy(xpath = "//*[@LocalizedControlType='button' and @Name='Search']")
     public WebElement searchButton;
 
-
+    @FindBy(xpath = "//*[@LocalizedControlType='combo box' and @AutomationId='ddlGender']")
+    public WebElement genderComboBox;
 
 
 
@@ -176,9 +185,6 @@ public class ApplicationLoginPage extends BasePage {
         visaExactCheckBox.click();
     }
 
-
-
-
     public void clickSearchButton()  {
 
         searchButton.click();
@@ -195,7 +201,6 @@ public class ApplicationLoginPage extends BasePage {
         log.info("Viewed the travel details");
 
     }
-
 
     public void enterStartDateOfBirth(String year, String month, String day)  {
 
@@ -216,7 +221,6 @@ public class ApplicationLoginPage extends BasePage {
         getDayTextFields.get(0).sendKeys(day);
 
     }
-
 
     public void enterEndDateOfBirth(String year, String month, String day)  {
         switchToWindow();
@@ -277,11 +281,6 @@ public class ApplicationLoginPage extends BasePage {
 
     }
 
-
-    @FindBy(xpath = "//*[@LocalizedControlType='combo box' and @AutomationId='ddlDOBRange']")
-    public WebElement dateOfBirthRange;
-
-
     public void clickDateOfBirthRange(String range)  {
         switchToWindow();
         dateOfBirthRange.click();
@@ -293,13 +292,14 @@ public class ApplicationLoginPage extends BasePage {
 
     }
 
+    public void clickEnrollmentDateRange(String range)  {
+        switchToWindow();
+        enrollmentDateRange.click();
 
+        switchToPopUpWindow();
+        driver.findElementByName(range).click();
 
-    @FindBy(name="Invalid Date" )
-    public WebElement invalidDateRange;
-
-    @FindBy(name="OK")
-    public WebElement okButton;
+    }
 
     public void invalidDateRange()  {
 
@@ -309,6 +309,14 @@ public class ApplicationLoginPage extends BasePage {
         Assert.assertTrue(warningMessage.isDisplayed());
         WebElement okButton = driver.findElement(By.name("OK"));
         okButton.click();
+    }
+
+    public void selectGender(String gender) {
+        switchToWindow();
+        genderComboBox.click();
+        switchToPopUpWindow();
+        driver.findElementByName(gender).click();
+
     }
 
 }
