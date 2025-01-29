@@ -2,7 +2,7 @@ package Utils;
 
 import java.sql.*;
 
-public class DatabaseUtils {
+public class DatabaseConnection {
     private static final String URL = "jdbc:sqlserver://localhost:1433;databaseName=your_database";
     private static final String USER = "your_username";
     private static final String PASSWORD = "your_password";
