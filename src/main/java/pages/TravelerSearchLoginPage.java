@@ -14,12 +14,12 @@ import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 
-public class ApplicationLoginPage extends BasePage {
+public class TravelerSearchLoginPage extends BasePage {
 
 
-    private static final Logger log = LoggerFactory.getLogger(ApplicationLoginPage.class);
+    private static final Logger log = LoggerFactory.getLogger(TravelerSearchLoginPage.class);
 
-    public ApplicationLoginPage(WindowsDriver<WebElement> driver) {
+    public TravelerSearchLoginPage(WindowsDriver<WebElement> driver) {
         super(driver);
         PageFactory.initElements(driver, this);
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS); // Set implicit wait

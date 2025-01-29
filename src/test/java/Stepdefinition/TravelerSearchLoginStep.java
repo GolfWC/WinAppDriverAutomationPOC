@@ -7,12 +7,12 @@ import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import Hook.Hook;
 import org.openqa.selenium.WebElement;
-import pages.ApplicationLoginPage;
+import pages.TravelerSearchLoginPage;
 
-public class ApplicationLoginStep  {
+public class TravelerSearchLoginStep {
 
     WindowsDriver<WebElement> driver = Hook.getDriver();
-    ApplicationLoginPage loginPage = new ApplicationLoginPage(driver);
+    TravelerSearchLoginPage loginPage = new TravelerSearchLoginPage(driver);
     BasePage basePage = new BasePage(driver);
 
 
