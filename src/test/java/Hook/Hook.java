@@ -31,7 +31,7 @@ public class Hook {
     private SpecializedScreenRecorder screenRecorder;
     Logger log = Logger.getLogger(Hook.class.getName());
     private String reportUUID;
-    private static List<TestResult> testResults = new ArrayList<>();
+    private static List<TestResultReport> testResults = new ArrayList<>();
     private static SuiteResult suiteResult = new SuiteResult(0, 0, 0, 0);
 
     static {
@@ -125,7 +125,7 @@ public void tearDown(Scenario scenario) throws Exception {
         message.append("└──────────────────────────────────────────────────────────────────────────┘\n");
         message.append("===============================================\n");
 
-        for (TestResult result : testResults) {
+        for (TestResultReport result : testResults) {
             message.append("Scenario: ").append(result.getScenarioName()).append("\n");
             message.append("Status: ").append(result.isFailed() ? "Failed" : "Passed").append("\n");
 //            message.append("Report Link: ").append(result.getReportLink()).append("\n");

@@ -1,11 +1,11 @@
 package Utils;
 
-public class TestResult {
+public class TestResultReport {
     private String scenarioName;
     private boolean isFailed;
     private String reportLink;
 
-    public TestResult(String scenarioName, boolean isFailed, String reportLink) {
+    public TestResultReport(String scenarioName, boolean isFailed, String reportLink) {
         this.scenarioName = scenarioName;
         this.isFailed = isFailed;
         this.reportLink = reportLink;

@@ -5,11 +5,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Action;
 import org.openqa.selenium.interactions.Actions;
-import org.openqa.selenium.support.PageFactory;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-
 import java.awt.*;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -19,10 +16,10 @@ import java.util.Set;
 public class BasePage {
 
     private static final Logger log = LoggerFactory.getLogger(BasePage.class);
-    public static WindowsDriver driver;
+    public static WindowsDriver<WebElement> driver;
 
-    public BasePage(WindowsDriver driver) {
-        this.driver = driver;
+    public BasePage(WindowsDriver<WebElement> driver) {
+        BasePage.driver = driver;
     }
     Properties properties = new Properties();
 
