@@ -9,10 +9,6 @@ import Hook.Hook;
 import org.openqa.selenium.WebElement;
 import pages.ApplicationLoginPage;
 
-import java.util.Properties;
-
-import static Utils.Screenshot.takeScreenshot;
-
 public class ApplicationLoginStep  {
 
     WindowsDriver<WebElement> driver = Hook.getDriver();
