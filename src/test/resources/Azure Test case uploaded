@@ -1,0 +1,137 @@
+
+## Here are the steps to integrate your Cucumber tests with Azure DevOps
+   and convert each scenario to a test case under a test plan:
+
+1. Set up a build pipeline in Azure DevOps:
+Create a new pipeline in Azure DevOps.
+Choose the repository where your test automation framework is stored.
+Configure the pipeline to use a Maven task to build and run your tests.
+
+2. Add a Maven task to the pipeline:
+Add a Maven task to your pipeline to compile and run your tests.
+Configure the Maven task to use the appropriate goals, such as clean test.
+
+3. Publish test results:
+Add a task to publish the test results to Azure DevOps.
+Use the Publish Test Results task to publish the results in a format that Azure DevOps can understand (e.g., TestNG).
+Here is an example of an Azure DevOps pipeline YAML configuration:
+
+'''
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: Maven@3
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'clean test'
+    options: '-DskipTests=false'
+    publishJUnitResults: true
+    testResultsFiles: '**/testng-results.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: true
+    options: '-Xmx1024m'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFiles: '**/testng-results.xml'
+    testRunTitle: 'Test Results'
+
+
+'''
+
+### Parse the Cucumber feature file to extract scenarios.
+
+To Use the Azure DevOps REST API to create test cases.
+First, add a dependency to parse the Cucumber feature files.
+You can use the gherkin library for this:
+
+'''
+<dependency>
+    <groupId>io.cucumber</groupId>
+    <artifactId>gherkin</artifactId>
+    <version>26.0.0</version>
+</dependency>
+
+'''
+
+Next, create a class to parse the feature file and create test cases in Azure DevOps:
+
+'''
+import io.cucumber.gherkin.Gherkin;
+import io.cucumber.messages.Messages;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.Base64;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+public class AzureDevOpsTestCaseCreator {
+
+    private static final String ORGANIZATION = "your_organization";
+    private static final String PROJECT = "your_project";
+    private static final String PAT = "your_personal_access_token";
+    private static final String PLAN_ID = "your_test_plan_id";
+    private static final String SUITE_ID = "your_test_suite_id";
+    private static final String BASE_URL = "https://dev.azure.com/" + ORGANIZATION + "/" + PROJECT + "/_apis/test/Plans/" + PLAN_ID + "/Suites/" + SUITE_ID + "/TestCases?api-version=6.0";
+
+    public static void main(String[] args) throws IOException {
+        String featureFilePath = "src/test/resources/features/ApplicationLogin.feature";
+        String featureContent = new String(Files.readAllBytes(Paths.get(featureFilePath)));
+        List<Messages.GherkinDocument.Feature.Scenario> scenarios = parseFeatureFile(featureContent);
+
+        for (Messages.GherkinDocument.Feature.Scenario scenario : scenarios) {
+            createTestCase(scenario);
+        }
+    }
+
+    private static List<Messages.GherkinDocument.Feature.Scenario> parseFeatureFile(String featureContent) {
+        List<Messages.GherkinDocument> documents = Gherkin.fromPaths(List.of(Paths.get("src/test/resources/features/ApplicationLogin.feature"))).collect(Collectors.toList());
+        return documents.get(0).getFeature().getChildrenList().stream()
+                .filter(child -> child.hasScenario())
+                .map(child -> child.getScenario())
+                .collect(Collectors.toList());
+    }
+
+    private static void createTestCase(Messages.GherkinDocument.Feature.Scenario scenario) throws IOException {
+        String json = "{ \"name\": \"" + scenario.getName() + "\", \"steps\": [";
+        List<Messages.GherkinDocument.Feature.Step> steps = scenario.getStepsList();
+        for (int i = 0; i < steps.size(); i++) {
+            json += "{ \"action\": \"" + steps.get(i).getText() + "\", \"expectedResult\": \"\", \"index\": " + (i + 1) + " }";
+            if (i < steps.size() - 1) {
+                json += ",";
+            }
+        }
+        json += "] }";
+
+        URL url = new URL(BASE_URL);
+        HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "application/json");
+        String auth = Base64.getEncoder().encodeToString((":" + PAT).getBytes());
+        conn.setRequestProperty("Authorization", "Basic " + auth);
+        conn.setDoOutput(true);
+        conn.getOutputStream().write(json.getBytes());
+
+        int responseCode = conn.getResponseCode();
+        if (responseCode == 200) {
+            System.out.println("Test case '" + scenario.getName() + "' created successfully.");
+        } else {
+            System.out.println("Failed to create test case '" + scenario.getName() + "': " + conn.getResponseMessage());
+        }
+    }
+}
+
+'''
+
+This code will parse the Cucumber feature file, extract the scenarios,
+and create test cases in Azure DevOps using the REST API.
+Make sure to replace the placeholders with your actual Azure DevOps organization,
+ project, PAT, test plan ID, and test suite ID.
