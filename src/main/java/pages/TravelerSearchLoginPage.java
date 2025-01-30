@@ -37,6 +37,12 @@ public class TravelerSearchLoginPage extends BasePage {
     @FindBy(xpath = "//*[@LocalizedControlType='button' and @Name='Login']")
     public WebElement loginButton;
 
+    @FindBy(xpath = "//*[@LocalizedControlType='text' and @AutomationId='lblMessages']")
+    public WebElement loginErrMessage;
+
+    @FindBy(xpath = "//*[@LocalizedControlType='text' and @Name='Travelers Search']")
+    public WebElement travelersSearchHeader;
+
     @FindBy(xpath = "//*[@LocalizedControlType='button' and @Name='Log off']")
     public WebElement offButton;
 
@@ -116,6 +122,21 @@ public class TravelerSearchLoginPage extends BasePage {
     public void clickLoginButton() {
         loginButton.click();
 
+    }
+
+    public void verifyTravelersSearchHeader() {
+        switchToWindow();
+        log.info("The header is " + travelersSearchHeader.getText());
+        System.out.println("The header is " + travelersSearchHeader.getText());
+        Assert.assertEquals(travelersSearchHeader.getText(), "Travelers Search");
+        Assert.assertTrue(travelersSearchHeader.isDisplayed());
+    }
+
+    public void verifyLoginErrorMessage() throws InterruptedException {
+        log.info("The error message is " + loginErrMessage.getText());
+        System.out.println("The error message is " + loginErrMessage.getText());
+        Assert.assertTrue(loginErrMessage.isDisplayed());
+        Assert.assertEquals(loginErrMessage.getText(), "The Credentials Entered Do Not Match Our Records");
     }
 
     public void clickOffButton() {

@@ -18,28 +18,85 @@ public class TravelerSearchLoginStep {
 
     @Given("I am open the application")
     public void i_am_open_the_application() {
-        loginPage.enterUsername(basePage.getProperties("username"));
+
     }
+
     @When("I enter my username and password")
     public void i_enter_my_username_and_password() {
-      loginPage.enterPassword(basePage.getProperties("password"));
+        loginPage.enterUsername(basePage.getProperties("username"));
+        loginPage.enterPassword(basePage.getProperties("password"));
     }
+
     @Then("I should be logged in the application")
     public void i_should_be_logged_in_the_application() {
        loginPage.clickLoginButton();
+       loginPage.verifyTravelersSearchHeader();
     }
 
-    @When("I click on the logout button")
-    public void i_click_on_the_logout_button() {
+    @Then("I close the application")
+    public void i_close_the_application() {
         loginPage.clickOffButton();
-    }
-    @Then("I should be logged out of the application")
-    public void i_should_be_logged_out_of_the_application()  {
         loginPage.clickLogoutButton();
         loginPage.enterAdminExitUsername(basePage.getProperties("adminExitUsername"));
         loginPage.enterAdminExitPassword(basePage.getProperties("adminExitPassword"));
         loginPage.clickAdminExitButton();
     }
+
+    @When("I enter my invalid {string} and {string}")
+    public void i_enter_my_invalid_and(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+    }
+
+    @When("I enter my {string} and invalid {string}")
+    public void i_enter_my_and_invalid(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+    }
+
+    @When("I enter my invalid {string} and invalid {string}")
+    public void i_enter_my_invalid_and_invalid(String username, String password) {
+        loginPage.enterUsername(username);
+        loginPage.enterPassword(password);
+    }
+
+    @When("I click on the login button")
+    public void i_click_on_the_login_button() {
+        loginPage.clickLoginButton();
+    }
+
+
+    @Then("I exit the application")
+    public void i_exit_the_application() {
+        loginPage.clickLogoutButton();
+        loginPage.enterAdminExitUsername(basePage.getProperties("adminExitUsername"));
+        loginPage.enterAdminExitPassword(basePage.getProperties("adminExitPassword"));
+        loginPage.clickAdminExitButton();
+    }
+
+
+    @Then("I should see an error message pop up")
+    public void i_should_see_an_error_message_pop_up() throws InterruptedException {
+        loginPage.verifyLoginErrorMessage();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     @When("I search for a travel by last name")
     public void i_search_for_a_travel_by_last_name()  {
@@ -69,10 +126,7 @@ public class TravelerSearchLoginStep {
 
     }
 
-    @Then("I should see an error message pop up")
-    public void i_should_see_an_error_message_pop_up()  {
-        loginPage.invalidDateRange();
-    }
+
 
     @When("I click on exact last name check box")
     public void i_click_on_exact_last_name_check_box() {
