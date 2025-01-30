@@ -1,16 +1,30 @@
-Feature: Travelers Search Form
+Feature: Travelers Search Main Screen
 
   Background:
     Given I am open the application
     When I enter my username and password
     Then I should be logged in the application
 
-      Scenario: Validate travel search by exact last name
-        When I search for a travel by last name
-        And I click on exact last name check box
-        Then I should see the exact traveler last name  details displayed
+    @smoke
+    Scenario Outline: Validate travel search by last name with valid lastname
+        When I search for a travel by valid last name "<last_name>"
+        And I click on the search button
+        Then I should see the travel details displayed
         When I click on the logout button
         Then I should be logged out of the application
+
+        Examples:
+            | last_name |
+            | Golf      |
+
+
+
+  Scenario: Validate travel search by exact last name
+    When I search for a travel by last name
+    And I click on exact last name check box
+    Then I should see the exact traveler last name  details displayed
+    When I click on the logout button
+    Then I should be logged out of the application
 
 
 

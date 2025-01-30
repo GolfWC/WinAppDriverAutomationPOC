@@ -3,33 +3,52 @@ Feature: Travelers Search Login
 
     Background:
         Given I am open the application
+
+
+
+    Scenario: Verify application Login with valid credentials
         When I enter my username and password
         Then I should be logged in the application
-
-@smoke
-    Scenario: Verify if the application and Login and logout with valid credentials
-        When I click on the logout button
-        Then I should be logged out of the application
-
-@smoke
-    Scenario: Validate travel search by last name
-        When I search for a travel by last name
-        And I click on the search button
-        Then I should see the travel details displayed
-        When I click on the logout button
-        Then I should be logged out of the application
+        And I close the application
 
 
-#    Scenario: Validate travel search by year
-#        Given I am open the application
-#        When I enter my username and password
-#        Then I should be logged in the application
-#        When I search for a travel by year
-#        And I click on the search button
-#        Then I should see an error message pop up
-#        When I click on the logout button
-#        Then I should be logged out of the application
-#
+    Scenario Outline: Verify application Login with invalid username
+        When I enter my invalid "<username>" and "<password>"
+        And I click on the login button
+        Then I should see an error message pop up
+        And I exit the application
+
+        Examples:
+            | username | password |
+            | user1    | securiport |
+
+
+
+    Scenario Outline: Verify application Login with invalid password
+        When I enter my "<username>" and invalid "<password>"
+        And I click on the login button
+        Then I should see an error message pop up
+        And I exit the application
+
+        Examples:
+            | username | password |
+            | Admin    | password1 |
+
+
+    Scenario Outline: Verify application Login with invalid username and password
+        When I enter my invalid "<username>" and invalid "<password>"
+        And I click on the login button
+        Then I should see an error message pop up
+        And I exit the application
+
+        Examples:
+            | username | password |
+            | user1    | password1 |
+
+
+
+
+
 
 
 
