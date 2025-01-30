@@ -100,6 +100,15 @@ public class TravelerSearchLoginPage extends BasePage {
     @FindBy(xpath = "//*[@LocalizedControlType='combo box' and @AutomationId='ddlGender']")
     public WebElement genderComboBox;
 
+    @FindBy(xpath = "//*[@LocalizedControlType='table' and @Name='DataGridView']")
+    public WebElement emptyTable;
+
+    @FindBy(xpath = "//*[@LocalizedControlType='edit' and contains(@Name,'Last Name Row')]")
+    public WebElement totalLastNameList;
+
+    @FindBy(xpath = "//*[@LocalizedControlType='text' and @AutomationId='labelTotalCount']")
+    public WebElement totalTravelers;
+
 
 
 
@@ -211,9 +220,48 @@ public class TravelerSearchLoginPage extends BasePage {
         searchButton.click();
     }
 
-    public void getTravelDetails(String tableName, String rowNumber) {
-        String text = readTableData(tableName, rowNumber);
-        System.out.println("The traveler "+ tableName + " is " +text);
+    public String getTravelDetails(String tableName, String rowNumber) {
+        String lastNameData = readTableData(tableName, rowNumber);
+        System.out.println("The traveler "+ tableName + " is " + lastNameData);
+    return lastNameData;
+    }
+
+    public void verifyTravelDetails(String tableName, String rowNumber) {
+        String lastNameData = readTableData(tableName, rowNumber);
+        log.info("The traveler "+ tableName + " is " + lastNameData);
+        System.out.println("The traveler "+ tableName + " is " + lastNameData);
+        Assert.assertTrue(lastNameData.contains("GOLF"));
+    }
+
+    public void verifyNoTravelDetails() {
+        log.info("No traveler details found");
+        System.out.println("No traveler details found");
+        Assert.assertTrue(emptyTable.isDisplayed());
+    }
+
+    public void getLastNameList() {
+
+        int totalTravelersCount = 0;
+        int pageCount = 0;
+        int size;
+
+        do {
+            List<WebElement> lastNameList = driver.findElements(By.xpath("//*[@LocalizedControlType='edit' and contains(@Name,'Last Name Row')]"));
+            totalTravelersCount += lastNameList.size();
+            for (WebElement element : lastNameList) {
+                System.out.println("The last name is " + element.getText());
+            }
+            pageCount++;
+            System.out.println("Processed page: " + pageCount);
+            if (lastNameList.size() == 25) {
+                driver.findElementByName(">").click();
+            }
+            size = lastNameList.size();
+        } while (size== 25);
+
+        System.out.println("The total number of travelers is " + totalTravelersCount);
+        Assert.assertEquals(totalTravelers.getText(), "Total Counts: " + totalTravelersCount);
+
 
     }
 

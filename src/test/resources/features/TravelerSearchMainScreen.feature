@@ -5,8 +5,8 @@ Feature: Travelers Search Main Screen
     When I enter my username and password
     Then I should be logged in the application
 
-    @smoke
-    Scenario Outline: Validate travel search by last name with valid lastname
+
+    Scenario Outline: Validate travel search by last name with unique lastname
         When I search for a travel by valid last name "<last_name>"
         And I click on the search button
         Then I should see the travel details displayed
@@ -16,6 +16,31 @@ Feature: Travelers Search Main Screen
         Examples:
             | last_name |
             | Golf      |
+
+    Scenario Outline: Verify travel search by last name who's last name contains same string
+        When I search for a travel by valid last name "<last_name>"
+        And I click on the search button
+        Then I should see multiple travels details display who's last name contains same string
+        When I click on the logout button
+        Then I should be logged out of the application
+
+        Examples:
+            | last_name |
+            | Si      |
+
+    Scenario Outline: Validate travel search by last name with invalid lastname
+        When I search for a travel by invalid last name "<last_name>"
+        And I click on the search button
+        Then I should not see the travel details displayed
+        When I click on the logout button
+        Then I should be logged out of the application
+
+        Examples:
+            | last_name |
+            | ZvYEYZ     |
+
+
+
 
 
 
