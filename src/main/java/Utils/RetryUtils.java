@@ -25,3 +25,10 @@ public class RetryUtils {
         throw new RuntimeException("Retry operation failed after " + maxRetries + " attempts");
     }
 }
+
+
+// Example usage of retry logic
+//        RetryUtils.retry(() -> {
+//        loginPage.openApplication();
+//            return null;
+//                    }, 3, 2000);
