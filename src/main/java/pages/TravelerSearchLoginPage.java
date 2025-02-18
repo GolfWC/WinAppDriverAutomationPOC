@@ -388,6 +388,15 @@ public class TravelerSearchLoginPage extends BasePage {
 
     }
 
+
+    @FindBy(xpath = "//*[@LocalizedControlType='pane' and @AutomationId='pictureBoxIRISLeft']")
+    public WebElement leftIrisImage;
+
+    public void sentLeftIrisImage() {
+        switchToWindow();
+        leftIrisImage.sendKeys("C:\\Users\\WChainan\\Desktop\\Repository\\WinAppDriverAutomationPOC\\img_7.png");
+    }
+
 }
 
 
