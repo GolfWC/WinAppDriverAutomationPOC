@@ -42,7 +42,7 @@ public class Hook {
         public void setUp(Scenario scenario) {
         DesiredCapabilities capabilities = new DesiredCapabilities();
         //    capabilities.setCapability("app", "c:\\windows\\system32\\notepad.exe");
-        capabilities.setCapability("app", "C:\\Securiport\\IICS_iics-15.0-releaseiics-15.0-release-20250107.1\\Clients\\Traveler Search\\Securiport.BMSys.WinApp.TravelersSearch.exe");
+        capabilities.setCapability("app", "C:\\Securiport\\Clients\\Traveler Search\\Securiport.BMSys.WinApp.TravelersSearch.exe");
         capabilities.setCapability("platformName", "Windows");
         capabilities.setCapability("deviceName", "WindowsPC");
 
@@ -60,7 +60,7 @@ public class Hook {
         reportUUID = UUID.randomUUID().toString();
     }
 
-    @AfterStep
+
     public void takeScreenshotAfterEachStep(Scenario scenario) {
         if (driver != null) {
             try {

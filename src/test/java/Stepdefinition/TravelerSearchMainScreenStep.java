@@ -23,7 +23,7 @@ public class TravelerSearchMainScreenStep {
     @Then("I should see the travel details displayed")
     public void i_should_see_the_travel_details_displayed() throws InterruptedException {
         // loginPage.getTravelDetails("Last Name", "0");
-        //loginPage.viewTravelDetails("view", "0");
+       // loginPage.viewTravelDetails("view", "0");
         loginPage.verifyTravelDetails("Last Name", "0");
     }
 
