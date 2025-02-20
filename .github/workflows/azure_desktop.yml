@@ -1,31 +1,37 @@
 trigger:
- branches:
-   include:
-     - main
+  branches:
+    include:
+      - main
+
 pool:
- name: 'Self-Hosted-Windows-Agent'  # Replace with your actual agent pool name
+  name: 'Self-Hosted-Windows-Agent'  # Replace with your actual agent pool name
+
 steps:
-- task: JavaToolInstaller@0
-inputs:
-   versionSpec: '17'
-   jdkArchitecture: 'x64'
-   jdkSource: 'PreInstalled'
-displayName: "Set up Java"
-- task: Maven@3
- inputs:
-   mavenPomFile: 'pom.xml'
-   goals: 'clean test'
-   publishJUnitResults: true
-   testResultsFiles: '**/surefire-reports/TEST-*.xml'
- displayName: "Run WinAppDriver Tests"
-- script: |
-   echo "Starting WinAppDriver..."
-   start /B "WinAppDriver" "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
- displayName: "Start WinAppDriver"
-- script: mvn test
- displayName: "Execute Maven Tests"
-- script: |
-   echo "Stopping WinAppDriver..."
-   taskkill /F /IM WinAppDriver.exe
- displayName: "Stop WinAppDriver"
- continueOnError: true
+  - task: JavaToolInstaller@0
+    inputs:
+      versionSpec: '17'
+      jdkArchitecture: 'x64'
+      jdkSource: 'PreInstalled'
+    displayName: "Set up Java"
+
+  - task: Maven@3
+    inputs:
+      mavenPomFile: 'pom.xml'
+      goals: 'clean test'
+      publishJUnitResults: true
+      testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    displayName: "Run WinAppDriver Tests"
+
+  - script: |
+      echo "Starting WinAppDriver..."
+      start /B "WinAppDriver" "C:\Program Files (x86)\Windows Application Driver\WinAppDriver.exe"
+    displayName: "Start WinAppDriver"
+
+  - script: mvn test
+    displayName: "Execute Maven Tests"
+
+  - script: |
+      echo "Stopping WinAppDriver..."
+      taskkill /F /IM WinAppDriver.exe
+    displayName: "Stop WinAppDriver"
+    continueOnError: true
