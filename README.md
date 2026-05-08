@@ -55,6 +55,7 @@ Once the installer is downloaded, perform the installation, it is recommended to
 Note: This tool provides us with the Inspector to map the objects of the desktop application we want to work with.
 ### Write an Automation Script
 Now that you've successfully installed WinAppDriver, you can get started with [authoring your first automation script](./Docs/AuthoringTestScripts.md)!
+- Install window kids for inspect the element C:\Program Files (x86)\Windows Kits\10\bin\10.0.26100.0\x64
 
 
 ### To create a testng.xml file to run the Maven tests
